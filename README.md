@@ -27,11 +27,10 @@ Workflow tại `.github/workflows/deploy-pages.yml` tự deploy website sau mỗ
 
 ### Thiết lập GitHub lần đầu
 
-1. Mở repository trên GitHub.
-2. Vào **Settings → Pages**.
-3. Tại **Build and deployment → Source**, chọn **GitHub Actions**.
-4. Commit và push mã nguồn lên `main`.
-5. Theo dõi workflow **Deploy Website to GitHub Pages** trong tab **Actions**.
+1. Commit và push mã nguồn lên `main`. Workflow sẽ thử tự bật GitHub Pages bằng `enablement: true`.
+2. Nếu tài khoản hoặc tổ chức không cho workflow tự bật Pages, mở **Settings → Pages**.
+3. Tại **Build and deployment → Source**, chọn **GitHub Actions** rồi chạy lại workflow.
+4. Theo dõi workflow **Deploy Website to GitHub Pages** trong tab **Actions**.
 
 Sau khi workflow hoàn tất, website sẽ được cập nhật tự động tại cùng một URL. Không cần build hoặc tải file EXE.
 
