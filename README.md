@@ -1,52 +1,54 @@
 # AdForge AI
 
-Ứng dụng desktop Windows tạo nội dung Google Ads bằng DeepSeek.
+Website tạo chiến dịch Google Ads Brand Search bằng DeepSeek, tối ưu cho BOFU và xuất dữ liệu Tab-Delimited để sử dụng với Google Ads Editor.
 
-## Chạy khi phát triển
+## Website công khai
 
-Yêu cầu Node.js 20 trở lên.
+Sau khi GitHub Pages được bật và workflow deploy thành công, website có địa chỉ:
+
+`https://xuyentv.github.io/ads_campaign/`
+
+## Tính năng
+
+- Cấu hình DeepSeek API và lưu trên trình duyệt người dùng.
+- Giao diện tiếng Việt; nội dung quảng cáo đầu ra bằng tiếng Anh.
+- Tạo 15 Headlines, 4 Descriptions, Display Paths và Final URL.
+- Tạo 6 Sitelinks theo giới hạn ký tự Google Ads.
+- Tạo 10 Callouts và 2 Structured Snippets.
+- Tự gợi ý Exact Match Brand Keywords theo ý định mua BOFU.
+- Có thể nhập dữ liệu Keyword Planner để lọc theo volume đã xác minh.
+- Không tự tạo hoặc suy đoán volume, CPC hay nguồn dữ liệu.
+- Xuất code box dạng Tab-Delimited và có nút sao chép.
+- Hiển thị Audit Log kiểm tra giới hạn ký tự.
+
+## Deploy tự động bằng GitHub Pages
+
+Workflow tại `.github/workflows/deploy-pages.yml` tự deploy website sau mỗi lần push vào branch `main`.
+
+### Thiết lập GitHub lần đầu
+
+1. Mở repository trên GitHub.
+2. Vào **Settings → Pages**.
+3. Tại **Build and deployment → Source**, chọn **GitHub Actions**.
+4. Commit và push mã nguồn lên `main`.
+5. Theo dõi workflow **Deploy Website to GitHub Pages** trong tab **Actions**.
+
+Sau khi workflow hoàn tất, website sẽ được cập nhật tự động tại cùng một URL. Không cần build hoặc tải file EXE.
+
+## Chạy local
+
+Có thể mở trực tiếp `index.html`, hoặc chạy một static server:
 
 ```bash
-npm install
-npm start
+python -m http.server 8080
 ```
 
-## Tạo file EXE trên máy Windows
+Sau đó mở `http://localhost:8080`.
 
-```bash
-npm run build
-```
+## Bảo mật
 
-Kết quả được lưu trong thư mục `dist/`:
+DeepSeek API key được lưu trong `localStorage` của trình duyệt và gửi trực tiếp từ trình duyệt đến endpoint đã cấu hình. Không commit API key vào repository. Chỉ sử dụng website trên thiết bị và repository đáng tin cậy.
 
-- Bản cài đặt NSIS cho phép chọn thư mục cài đặt.
-- Bản portable chạy trực tiếp, không cần cài đặt.
+## Giới hạn dữ liệu
 
-## GitHub Actions
-
-Workflow tại `.github/workflows/build-windows.yml` chạy sau mỗi lần push lên bất kỳ branch nào.
-
-- Push lên branch bất kỳ: tạo artifact kiểm thử, được giữ trong 30 ngày.
-- Push lên `main`: tự động tạo hoặc cập nhật Release mang tag `latest`, ghi đè hai file EXE cũ bằng bản build mới nhất.
-- Push tag `v*`: tạo một Release phiên bản riêng và lưu lâu dài.
-
-Link công khai luôn trỏ tới bản mới nhất:
-
-`https://github.com/xuyentv/ads_campaign/releases/latest`
-
-Người dùng có thể tải bản Setup hoặc Portable tại mục **Assets** mà không cần vào tab Actions.
-
-## Tạo GitHub Release
-
-Mỗi commit được push lên `main` đã tự cập nhật Release `latest`. Khi cần lưu một phiên bản chính thức riêng biệt, tạo và push tag có tiền tố `v` để workflow tạo thêm Release phiên bản:
-
-```bash
-git tag v1.0.0
-git push origin v1.0.0
-```
-
-Số phiên bản trong tag nên trùng với trường `version` trong `package.json`.
-
-## Ghi chú bảo mật
-
-API key DeepSeek được lưu trong vùng lưu trữ cục bộ của Electron trên máy người dùng. API key không được đưa vào mã nguồn hoặc GitHub Actions. Bản build hiện chưa ký code-signing certificate, vì vậy Windows SmartScreen có thể hiển thị cảnh báo với ứng dụng mới tải xuống.
+Website không có quyền truy cập Google Keyword Planner, SEMrush hoặc Ahrefs. Nếu không cung cấp dữ liệu nghiên cứu, hệ thống chỉ tạo keyword ideas và đánh dấu rõ là chưa xác minh volume/CPC. Nội dung nguồn từ trang sản phẩm cần được người dùng dán vào để hạn chế AI suy đoán sai USP.
