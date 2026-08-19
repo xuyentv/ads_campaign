@@ -1,4 +1,4 @@
-# AdForge AI
+ # AdForge AI
 
 Website tạo chiến dịch Google Ads Brand Search bằng DeepSeek, tối ưu cho BOFU và xuất dữ liệu Tab-Delimited để sử dụng với Google Ads Editor.
 
@@ -16,6 +16,7 @@ Sau khi GitHub Pages được bật và workflow deploy thành công, website c�
 - Tạo 6 Sitelinks theo giới hạn ký tự Google Ads.
 - Tạo 10 Callouts và 2 Structured Snippets.
 - Tự gợi ý Exact Match Brand Keywords theo ý định mua BOFU.
+- Nội dung thực tế từ trang là tùy chọn; nếu để trống, hệ thống chuyển sang chế độ chưa xác minh và không được phép tự tạo USP hoặc tuyên bố đã đọc URL.
 - Có thể nhập dữ liệu Keyword Planner để lọc theo volume đã xác minh.
 - Không tự tạo hoặc suy đoán volume, CPC hay nguồn dữ liệu.
 - Xuất code box dạng Tab-Delimited và có nút sao chép.
@@ -50,4 +51,6 @@ DeepSeek API key được lưu trong `localStorage` của trình duyệt và g�
 
 ## Giới hạn dữ liệu
 
-Website không có quyền truy cập Google Keyword Planner, SEMrush hoặc Ahrefs. Nếu không cung cấp dữ liệu nghiên cứu, hệ thống chỉ tạo keyword ideas và đánh dấu rõ là chưa xác minh volume/CPC. Nội dung nguồn từ trang sản phẩm cần được người dùng dán vào để hạn chế AI suy đoán sai USP.
+Website không có quyền truy cập Google Keyword Planner, SEMrush hoặc Ahrefs. Nếu không cung cấp dữ liệu nghiên cứu, hệ thống chỉ tạo keyword ideas và đánh dấu rõ là chưa xác minh volume/CPC.
+
+Nội dung nguồn từ trang sản phẩm là tùy chọn. Khi có nội dung nguồn, AI dùng nội dung đó để xác minh USP. Khi để trống, hệ thống đánh dấu nguồn là chưa xác minh, không tuyên bố đã duyệt URL và yêu cầu AI không tự tạo USP hoặc dữ kiện sản phẩm. Có thể bổ sung các dữ kiện đã biết trong trường ngữ cảnh bổ sung.
