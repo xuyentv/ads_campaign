@@ -26,17 +26,19 @@ Kết quả được lưu trong thư mục `dist/`:
 
 Workflow tại `.github/workflows/build-windows.yml` chạy sau mỗi lần push lên bất kỳ branch nào.
 
-1. Push mã nguồn lên GitHub.
-2. Mở tab **Actions** trong repository.
-3. Chọn lần chạy **Build Windows EXE** mới nhất.
-4. Tải artifact **AdForge-AI-Windows-...** ở cuối trang workflow run.
-5. Giải nén artifact để lấy file `.exe` installer và portable.
+- Push lên branch bất kỳ: tạo artifact kiểm thử, được giữ trong 30 ngày.
+- Push lên `main`: tự động tạo hoặc cập nhật Release mang tag `latest`, ghi đè hai file EXE cũ bằng bản build mới nhất.
+- Push tag `v*`: tạo một Release phiên bản riêng và lưu lâu dài.
 
-Artifact của mỗi commit được giữ trong 30 ngày.
+Link công khai luôn trỏ tới bản mới nhất:
+
+`https://github.com/xuyentv/ads_campaign/releases/latest`
+
+Người dùng có thể tải bản Setup hoặc Portable tại mục **Assets** mà không cần vào tab Actions.
 
 ## Tạo GitHub Release
 
-Tạo và push tag có tiền tố `v` để workflow tự động đưa các file EXE vào GitHub Releases:
+Mỗi commit được push lên `main` đã tự cập nhật Release `latest`. Khi cần lưu một phiên bản chính thức riêng biệt, tạo và push tag có tiền tố `v` để workflow tạo thêm Release phiên bản:
 
 ```bash
 git tag v1.0.0

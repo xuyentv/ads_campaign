@@ -45,9 +45,29 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
-      - name: Publish tagged release
+      - name: Publish or update latest release
+        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: AdForge AI - Latest
+          body: |
+            Bản Windows mới nhất được tự động tạo từ nhánh main.
+
+            - **Setup**: bản cài đặt Windows.
+            - **Portable**: chạy trực tiếp, không cần cài đặt.
+            - Commit: ${{ github.sha }}
+          files: dist/*.exe
+          prerelease: false
+          draft: false
+          make_latest: true
+          overwrite_files: true
+
+      - name: Publish versioned release
         if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
           files: dist/*.exe
           generate_release_notes: true
+          make_latest: true
+          overwrite_files: true
