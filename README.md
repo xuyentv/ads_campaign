@@ -4,9 +4,11 @@ Website tạo chiến dịch Google Ads Brand Search bằng DeepSeek, tối ưu 
 
 ## Website công khai
 
-Sau khi GitHub Pages được bật và workflow deploy thành công, website có địa chỉ:
+Website được triển khai bằng Vercel. Sau khi import repository, Vercel sẽ cấp địa chỉ dạng:
 
-`https://xuyentv.github.io/ads_campaign/`
+`https://ads-campaign-<team>.vercel.app`
+
+Tên miền chính xác được hiển thị trong trang **Project Overview** trên Vercel và có thể thay đổi trong **Settings → Domains**.
 
 ## Tính năng
 
@@ -19,21 +21,29 @@ Sau khi GitHub Pages được bật và workflow deploy thành công, website c�
 - Nội dung thực tế từ trang là tùy chọn; nếu để trống, hệ thống chuyển sang chế độ chưa xác minh và không được phép tự tạo USP hoặc tuyên bố đã đọc URL.
 - Có thể nhập dữ liệu Keyword Planner để lọc theo volume đã xác minh.
 - Không tự tạo hoặc suy đoán volume, CPC hay nguồn dữ liệu.
-- Xuất code box dạng Tab-Delimited và có nút sao chép.
+- Hiển thị dữ liệu theo từng hàng và hỗ trợ sao chép Tab-Delimited.
 - Hiển thị Audit Log kiểm tra giới hạn ký tự.
 
-## Deploy tự động bằng GitHub Pages
+## Deploy tự động bằng Vercel
 
-Workflow tại `.github/workflows/deploy-pages.yml` tự deploy website sau mỗi lần push vào branch `main`.
+Repository không còn sử dụng GitHub Pages hoặc GitHub Actions để deploy. Vercel kết nối trực tiếp với repository và tự tạo deployment sau mỗi lần push.
 
-### Thiết lập GitHub lần đầu
+### Thiết lập lần đầu
 
-1. Commit và push mã nguồn lên `main`. Workflow sẽ thử tự bật GitHub Pages bằng `enablement: true`.
-2. Nếu tài khoản hoặc tổ chức không cho workflow tự bật Pages, mở **Settings → Pages**.
-3. Tại **Build and deployment → Source**, chọn **GitHub Actions** rồi chạy lại workflow.
-4. Theo dõi workflow **Deploy Website to GitHub Pages** trong tab **Actions**.
+1. Truy cập [Vercel](https://vercel.com/) và đăng nhập bằng GitHub.
+2. Chọn **Add New → Project** rồi import repository `ads_campaign`.
+3. Trong phần cấu hình project, chọn **Framework Preset: Other**.
+4. Giữ **Root Directory** là thư mục gốc repository.
+5. Không nhập Build Command, Output Directory hoặc Install Command vì đây là website tĩnh.
+6. Chọn **Deploy**.
 
-Sau khi workflow hoàn tất, website sẽ được cập nhật tự động tại cùng một URL. Không cần build hoặc tải file EXE.
+Sau lần đầu, mỗi push vào branch `main` sẽ tự động tạo Production Deployment. Push vào branch khác hoặc Pull Request sẽ tạo Preview Deployment riêng.
+
+Cấu hình Vercel nằm tại `vercel.json`. Project không yêu cầu biến môi trường phía Vercel vì DeepSeek API key do từng người dùng nhập và lưu cục bộ trong trình duyệt.
+
+### Tắt GitHub Pages cũ
+
+Nếu GitHub Pages đã từng được bật, mở repository trên GitHub, vào **Settings → Pages**, rồi chọn **Unpublish site** để ngừng website cũ. Workflow GitHub Pages đã được xóa khỏi mã nguồn.
 
 ## Chạy local
 
